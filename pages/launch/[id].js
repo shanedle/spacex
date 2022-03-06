@@ -95,7 +95,6 @@ const LaunchPage = () => {
                   target="_blank"
                   href={launchDetails[0].links.article_link}
                   rounded={"full"}
-                  rounded={"full"}
                   leftIcon={<LinkIcon w={6} h={6} color="blue.400" />}
                 >
                   Article
