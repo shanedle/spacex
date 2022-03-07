@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
+import Link from "next/link";
 import { GET_ROCKET_INFO } from "../../graphql/queries";
 import { useQuery } from "@apollo/client";
-
 import {
   Spinner,
   Flex,
@@ -10,8 +10,11 @@ import {
   Button,
   Text,
   Image,
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
 } from "@chakra-ui/react";
-import { LinkIcon, ViewIcon } from "@chakra-ui/icons";
+import { LinkIcon, ViewIcon, ChevronRightIcon } from "@chakra-ui/icons";
 
 const LaunchPage = () => {
   const router = useRouter();
@@ -29,6 +32,24 @@ const LaunchPage = () => {
 
   return (
     <>
+      <Breadcrumb
+        fontWeight="medium"
+        fontSize="xl"
+        spacing="8px"
+        pb={6}
+        separator={<ChevronRightIcon color="gray.500" />}
+      >
+        <BreadcrumbItem>
+          <BreadcrumbLink as={Link} href="/">
+            Home
+          </BreadcrumbLink>
+        </BreadcrumbItem>
+
+        <BreadcrumbItem isCurrentPage>
+          <BreadcrumbLink>{launchDetails[0].rocket.rocket_name}</BreadcrumbLink>
+        </BreadcrumbItem>
+      </Breadcrumb>
+
       <Stack
         minH={"100vh"}
         maxH={"100vh"}
@@ -47,28 +68,29 @@ const LaunchPage = () => {
               <Text
                 as={"span"}
                 position={"relative"}
+                color={"blue.500"}
                 _after={{
                   content: "''",
                   width: "full",
                   position: "absolute",
                   bottom: 1,
                   left: 0,
-                  bg: "blue.400",
+                  bg: "blue.500",
                   zIndex: -1,
                 }}
               >
                 {launchDetails[0].mission_name}
               </Text>
-              <br />{" "}
-              <Text color={"blue.400"} as={"span"}>
-                Name: {launchDetails[0].rocket.rocket_name}
-              </Text>{" "}
               <br />
-              <Text color={"blue.400"} as={"span"}>
+              <Text color={"blue.500"} as={"span"}>
+                Name: {launchDetails[0].rocket.rocket_name}
+              </Text>
+              <br />
+              <Text color={"blue.500"} as={"span"}>
                 Type: {launchDetails[0].rocket.rocket_type}
-              </Text>{" "}
+              </Text>
             </Heading>
-            <Text fontSize={{ base: "md", lg: "lg" }} color={"gray.500"}>
+            <Text fontSize={{ base: "md", lg: "lg" }}>
               {launchDetails[0].rocket.rocket.description}
             </Text>
             <Stack direction={{ base: "column", md: "row" }} spacing={4}>
@@ -79,12 +101,11 @@ const LaunchPage = () => {
                   href={launchDetails[0].links.video_link}
                   rounded={"full"}
                   bg={"blue.400"}
-                  color={"white"}
                   _hover={{
                     bg: "blue.500",
                   }}
                   spacing="40px"
-                  leftIcon={<ViewIcon w={6} h={6} color="gray.200" />}
+                  leftIcon={<ViewIcon w={6} h={6} />}
                 >
                   Youtube
                 </Button>
@@ -95,7 +116,7 @@ const LaunchPage = () => {
                   target="_blank"
                   href={launchDetails[0].links.article_link}
                   rounded={"full"}
-                  leftIcon={<LinkIcon w={6} h={6} color="blue.400" />}
+                  leftIcon={<LinkIcon w={6} h={6} color="blue.500" />}
                 >
                   Article
                 </Button>

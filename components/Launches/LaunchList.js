@@ -12,7 +12,7 @@ import Link from "next/link";
 
 const LaunchList = ({ launches }) => {
   return (
-    <SimpleGrid columns={[1, 2, 3]} spacing="40px">
+    <SimpleGrid columns={[1, 2, 3]} spacing="25px">
       {launches.map((launch) => (
         <Link key={launch.id} href={`/launch/${launch.id}`}>
           <Center py={6}>
@@ -24,18 +24,12 @@ const LaunchList = ({ launches }) => {
               p={6}
               overflow={"hidden"}
             >
-              <Box
-                h={"210px"}
-                bg={"gray.100"}
-                mt={-6}
-                mx={-6}
-                mb={6}
-                pos={"relative"}
-              >
+              <Box h={"210px"} mt={-6} mx={-6} mb={6} pos={"relative"}>
                 <Image
                   src={launch.links.flickr_images[0]}
                   objectFit="cover"
                   layout={"fill"}
+                  alt={launch.mission_name}
                 />
               </Box>
               <Stack>
@@ -45,11 +39,9 @@ const LaunchList = ({ launches }) => {
                   align="center"
                   justify="center"
                 >
-                  {launch.mission_name.slice(0, 25)}
+                  {launch.mission_name.slice(0, 20)}
                 </Heading>
-                <Text color={"gray.500"}>
-                  {launch.details?.slice(0, 90)}...
-                </Text>
+                <Text>{launch.details?.slice(0, 75)}...</Text>
               </Stack>
               <Stack mt={6} direction={"row"} spacing={4} align={"center"}>
                 <Avatar src={launch.links.mission_patch} alt={"Author"} />
@@ -57,7 +49,7 @@ const LaunchList = ({ launches }) => {
                   <Text fontWeight={600}>
                     {launch.launch_site.site_name_long.slice(0, 45)}...
                   </Text>
-                  <Text color={"gray.500"}>
+                  <Text>
                     {new Date(launch.launch_date_local).toLocaleDateString(
                       "no-NO",
                       { month: "long", day: "numeric", year: "numeric" }
