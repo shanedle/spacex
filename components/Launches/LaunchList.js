@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import {
   Box,
   Center,
@@ -8,7 +9,6 @@ import {
   Avatar,
   SimpleGrid,
 } from "@chakra-ui/react";
-import Link from "next/link";
 
 const LaunchList = ({ launches }) => {
   return (
@@ -23,6 +23,7 @@ const LaunchList = ({ launches }) => {
               rounded={"md"}
               p={6}
               overflow={"hidden"}
+              cursor="pointer"
             >
               <Box h={"210px"} mt={-6} mx={-6} mb={6} pos={"relative"}>
                 <Image

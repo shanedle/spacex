@@ -5,8 +5,8 @@ import {
   extendTheme,
   Container,
 } from "@chakra-ui/react";
-
 import NavBar from "../components/NavBar/NavBar";
+import "../styles/globals.css";
 
 const client = new ApolloClient({
   uri: "https://api.spacex.land/graphql",

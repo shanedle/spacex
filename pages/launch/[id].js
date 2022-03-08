@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { GET_ROCKET_INFO } from "../../graphql/queries";
+import { NextSeo } from "next-seo";
 import { useQuery } from "@apollo/client";
 import {
   Spinner,
@@ -15,6 +15,7 @@ import {
   BreadcrumbLink,
 } from "@chakra-ui/react";
 import { LinkIcon, ViewIcon, ChevronRightIcon } from "@chakra-ui/icons";
+import { GET_ROCKET_INFO } from "../../queries";
 
 const LaunchPage = () => {
   const router = useRouter();
@@ -22,7 +23,16 @@ const LaunchPage = () => {
 
   const { loading, error, data } = useQuery(GET_ROCKET_INFO);
   if (loading) {
-    return <Spinner />;
+    return (
+      <Spinner
+        thickness="4px"
+        speed="0.65s"
+        emptyColor="gray.200"
+        color="blue.500"
+        size="xl"
+        className="spinner"
+      />
+    );
   }
   if (error) {
     return "Something went wrong!";
@@ -32,6 +42,19 @@ const LaunchPage = () => {
 
   return (
     <>
+      <NextSeo
+        title={`SpaceX | ${launchDetails[0].rocket.rocket_name}`}
+        description="SpaceX Website."
+        canonical="https://spacex-shanedle.vercel.app/"
+        openGraph={{
+          type: "website",
+          locale: "en_US",
+          url: "https://spacex-shanedle.vercel.app/",
+          site_name: `SpaceX | ${launchDetails[0].rocket.rocket_name}`,
+          description: "SpaceX Website.",
+        }}
+      />
+
       <Breadcrumb
         fontWeight="medium"
         fontSize="xl"
